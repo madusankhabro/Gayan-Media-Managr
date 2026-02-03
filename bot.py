@@ -273,4 +273,21 @@ def main():
     app = ApplicationBuilder().token(TOKEN).build()
 
     app.add_handler(CommandHandler("start", cmd_start))
-    app.add
+    app.add_handler(CommandHandler("status", cmd_status))
+    app.add_handler(CommandHandler("setttl", cmd_setttl))
+    app.add_handler(CommandHandler("pause", cmd_pause))
+    app.add_handler(CommandHandler("resume", cmd_resume))
+    app.add_handler(CommandHandler("deleteadmins", cmd_deleteadmins))
+    app.add_handler(CommandHandler("types", cmd_types))
+
+    media_filter = (
+        filters.PHOTO | filters.VIDEO | filters.Document.ALL |
+        filters.VOICE | filters.Sticker.ALL | filters.ANIMATION | filters.VIDEO_NOTE
+    )
+    app.add_handler(MessageHandler(media_filter, handle_media))
+
+    app.run_polling(allowed_updates=Update.ALL_TYPES)
+
+if __name__ == "__main__":
+    main()
+```0
